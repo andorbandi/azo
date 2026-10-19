@@ -13,6 +13,8 @@ export class EmployeeComponent {
   builder = inject(FormBuilder);
   employeeApi = inject(EmployeeService);
 
+  employees!: any[];
+
   employeeForm = this.builder.group({
     name: [''],
     city: [''],
@@ -22,6 +24,22 @@ export class EmployeeComponent {
 
   visibleModal = false;
 
+  ngOnInit() {
+    this.getEmployees();
+  }
+
+  getEmployees() {
+    this.employeeApi.getEmployees().subscribe({
+      next: (res: any) => {
+        console.log(res)
+        this.employees = res.data;
+      },
+      error: (error: any) => {
+        console.error(error);
+      }
+    });
+  }
+
   toggleModal() {
     this.visibleModal = ! this.visibleModal;
   }
@@ -30,6 +48,8 @@ export class EmployeeComponent {
     console.log('Employee saved!');
     this.toggleModal();
   }
+
+  
 
   createEmployee() {
     console.log('Employee created!');

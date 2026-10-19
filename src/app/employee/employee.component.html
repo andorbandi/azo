@@ -2,6 +2,29 @@
 
 <button class="btn btn-primary" (click)="toggleModal()">Hozzáadás</button>
 
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Név</th>
+            <th>Település</th>
+            <th>Fizetés</th>
+            <th>Beosztás</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for( emp of employees ; track emp.id ) {
+            <tr>
+                <td>{{emp.id}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.city}}</td>
+                <td>{{emp.salary}}</td>
+                <td>{{emp.positionId}}</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 @if(visibleModal) {
 <div class="modal" tabindex="-1">
   <div class="modal-dialog">
