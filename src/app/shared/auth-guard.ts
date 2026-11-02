@@ -1,0 +1,14 @@
+import { CanActivateFn } from '@angular/router';
+import { AuthService } from './auth-service';
+import { inject } from '@angular/core/primitives/di';
+
+export const authGuard: CanActivateFn = (route, state) => {
+
+  const auth = inject(AuthService)
+
+  if(!auth.isAuthenticated()) {
+    return false;
+  }
+
+  return true;
+};

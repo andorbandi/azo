@@ -1,0 +1,38 @@
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../shared/auth-service';
+import { Router } from '@angular/router';
+
+@Component({
+  imports: [ReactiveFormsModule],
+  selector: 'app-login-component',
+  styleUrl: './login-component.css',
+  templateUrl: './login-component.html',
+})
+export class LoginComponent {
+  builder = inject(FormBuilder)
+  authService = inject(AuthService)
+  router = inject(Router)
+
+  loginForm = this.builder.group({
+    name: ['mari'],
+    password: ['titok']
+  })
+
+  login() {
+    console.log("Belépés...")
+    console.log(this.loginForm.value)
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (data: any) => {
+        console.log(data)
+        localStorage.setItem("token", data.accessToken)
+        this.authService.loginSuccess()
+        this.router.navigate(['/employee'])
+      },
+      error: (err) => {
+        console.error(err)
+      }
+    })
+  }
+}

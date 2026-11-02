@@ -1,0 +1,18 @@
+<nav class="nav justify-content-center">
+  
+  <!-- <a routerLink="main" class="nav-link">Főoldal</a> -->
+
+  @if(!authService.isAuthenticated()) {
+    <a routerLink="login" class="nav-link">Belépés</a>
+  }
+
+  @if(authService.isAuthenticated()) {
+    <a routerLink="employee" class="nav-link">Dolgozók</a>
+    <a (click)="logout()" class="nav-link logout">Kijelentkezés</a>
+  }
+
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
